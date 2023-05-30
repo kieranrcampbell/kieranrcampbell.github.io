@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Kieran R Campbell">
+<meta name="dcterms.date" content="2023-06-01">
+
+<title>Kieran R Campbell - What makes a good computational genomics method?</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-D1X92L00M8"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-D1X92L00M8', { 'anonymize_ip': true});
+</script>
+<script src="../../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Kieran R Campbell</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">About</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html">Blog posts</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/kieranrcampbell"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/kieranrcampbell"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">What makes a good computational genomics method?</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">reflections</div>
+                <div class="quarto-category">strategy</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Kieran R Campbell </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">June 1, 2023</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#start-with-a-problem-not-a-solution" id="toc-start-with-a-problem-not-a-solution" class="nav-link active" data-scroll-target="#start-with-a-problem-not-a-solution">Start with a problem, not a solution</a></li>
+  <li><a href="#seek-a-new-perspective-not-an-improved-score" id="toc-seek-a-new-perspective-not-an-improved-score" class="nav-link" data-scroll-target="#seek-a-new-perspective-not-an-improved-score">Seek a new perspective, not an improved score</a></li>
+  <li><a href="#have-an-evaluation-first-approach" id="toc-have-an-evaluation-first-approach" class="nav-link" data-scroll-target="#have-an-evaluation-first-approach">Have an evaluation-first approach</a></li>
+  <li><a href="#sec-whatspossible" id="toc-sec-whatspossible" class="nav-link" data-scroll-target="#sec-whatspossible">Balance what’s important with what’s possible</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p><a href="https://teng-gao.github.io/">Teng Gao</a> recently published a blog post called <a href="https://teng-gao.github.io/blog/2023/method/">Principles for new method development</a> summarizing some guidelines on how to approach the creation and evaluation of new computational biology methods. Given the proliferation of research in this area, I think this is a really important topic and worth diving deep on. What makes a “good” methods development research project? How do we know it’s “good”? Much of this is based on mistakes I have made in the past.</p>
+<section id="start-with-a-problem-not-a-solution" class="level3">
+<h3 class="anchored" data-anchor-id="start-with-a-problem-not-a-solution">Start with a problem, not a solution</h3>
+<p>A seemingly common strategy when starting a new computational genomics methods problem is to</p>
+<ol type="1">
+<li>Think of cool new model</li>
+<li>Implement the cool new model</li>
+<li>Work out where the cool new model might be useful</li>
+</ol>
+<p>I have <span class="math inline">\(n=1\)</span> <a href="https://pubmed.ncbi.nlm.nih.gov/29939207/">concrete evidence for this</a> but suspect it’s very common. For example, when single cell RNA-sequencing methods were created, there was a rush to develop specific methods for differential expression (comparing if the expression of gene differs between two conditions) rather than relying on existing methods for bulk data. However, later benchmarking papers <a href="https://pubmed.ncbi.nlm.nih.gov/29481549/">hinted that bulk differential expression tools performed best on average</a>. In other words, make sure there is a problem to be solved rather than creating a solution first or imagining there is a problem without confirming. A really good place to start with this is via benchmarking/testing existing methods and working out where they fail/perform poorly. It’s in those gaps the potential for important new methods lies.</p>
+</section>
+<section id="seek-a-new-perspective-not-an-improved-score" class="level3">
+<h3 class="anchored" data-anchor-id="seek-a-new-perspective-not-an-improved-score">Seek a new perspective, not an improved score</h3>
+<p>A related issue is to look an existing method, think</p>
+<blockquote class="blockquote">
+<p>this doesn’t achieve 100% accuracy</p>
+</blockquote>
+<p>(however you choose to define accuracy), then think</p>
+<blockquote class="blockquote">
+<p>I bet I can come up with a better method</p>
+</blockquote>
+<p>There are some merits to this approach. For example, in the field of computer vision circa 2012, the top-1 accuracy on ImageNet using hand-engineered features was ~50%. The next year, along came deep learning and raised this to ~65%, a relative increase of ~30% which is mindblowing<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="top1-acc.png" class="img-fluid figure-img" style="width:80.0%"></p>
+<p></p><figcaption class="figure-caption">Top-1 accuracy on ImageNet 2011-2021. Source: <a href="https://paperswithcode.com/sota/image-classification-on-imagenet">paperswithcode.com</a></figcaption><p></p>
+</figure>
+</div>
+<p>The catch is, this is happens rarely in applied genomics research. It’s much more likely that after extensive methods development and (hyper-)parameter tuning, we see a 2-5% increase<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> in whatever score is used to benchmark the method.</p>
+<p>The issue here is: is any new biology discovered as a result of improving a score by 2-5%? I suspect the answer is frequently “no”, and a lot of frustration of wet-lab biologists with the computational methods community is chasing such benchmarks rather than trying to uncover new biology / insights from the data. I also suspect that 30% bump in accuracy on ImageNet has laid the foundation for thinking</p>
+<blockquote class="blockquote">
+<p>If only I could create the right (deep learning) method, I’ll solve this!</p>
+</blockquote>
+<p>from many researchers (including myself), which in reality it’s uncommon for this to throw the doors open to new insights.</p>
+<p>So what’s the alternative? The alternative is to take a fresh perspective of the data in some that discovers something new, which is <strong>hard</strong>. One nice example of this work on <a href="https://www.nature.com/articles/s41586-018-0414-6">RNA velocity</a>, which took existing single-cell RNA-seq data, but realized that by quantifying spliced vs.&nbsp;unspliced read counts with a new model (the fresh perspective) and in doing so could predict<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> the future state of cells (the something new). But the fact remains that such new approaches are <em>hard</em> and consequently <em>rare</em>, but a good angle may be to go first really deep on the biology then try to align that with what’s possible from the data.</p>
+</section>
+<section id="have-an-evaluation-first-approach" class="level3">
+<h3 class="anchored" data-anchor-id="have-an-evaluation-first-approach">Have an evaluation-first approach</h3>
+<p>After successfully identifying a problem, the next important yet still hard question is how do you know when you’ve solved the problem? In a supervised learning setup this is somewhat straightforward: a successful method will improve the accuracy on held out test data<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<p>However, in computational genomics it’s often hard to apply such a concept, since (i) labelled (ground truth data) may be expensive to obtain and/or non existent, and (ii) many of the problems are unsupervised (e.g.&nbsp;clustering or dimensionality reduction), so there is no such thing as a “ground truth”.</p>
+<p>Given this, how do we say if one method is “better” than another? Some common approaches are</p>
+<ol type="1">
+<li>Develop a set of <em>heuristics</em> that reflect some quality of the ground truth. For example, maybe a “good” clustering is one where the cluster markers reflect known cell lineages. We’ve <a href="https://openreview.net/pdf?id=QspAcsAyis">developed some methodology around Bayesian optimization in such settings previously</a>.</li>
+<li>Get ground truth labels from somewhere (anywhere), or at least labels that may correlate with ground truth</li>
+<li>Assess methods on their robustness to perturbations in the data / model hyperparameters / etc.</li>
+</ol>
+<p>The crucial consideration isn’t the exact evaluation strategy used but to have one in place before you start. It’s much better to have</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
+  A[Identify problem] --&gt; B[Consider\nevaluation\nstrategy]
+  B --&gt; C[Realize no\nstrategy exists]
+  C --&gt; D[Abandon\nproject]
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
+</div>
+<p></p>
+</div>
+</div>
+</div>
+<p>than</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-2">flowchart LR
+  A[Identify problem] --&gt; B[Develop new\n method]
+  B --&gt; C[Consider\nevaluation\nstrategy]
+  C --&gt; D[Realize no\nstrategy exists]
+  C --&gt; E[Realize new\nmethod is inferior\nto existing]
+  D &amp; E --&gt; F[Abandon\nproject]
+</pre>
+<div id="mermaid-tooltip-2" class="mermaidTooltip">
+
+</div>
+<p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-whatspossible" class="level3">
+<h3 class="anchored" data-anchor-id="sec-whatspossible">Balance what’s important with what’s possible</h3>
+<p>The last consideration is probably the most obvious: aim for projects that are both important and feasible.</p>
+<p>What is <strong>important</strong>? Projects that will deliver some new biological insight, unblock some impediment to progress in a sub-field, or (most importantly of all) deliver something back to the clinic that will improve patient outcomes.</p>
+<p>What is <strong>feasible</strong>? Projects where the data to answer the question exist, to which you have access, and/or for which you have collaborators able to validate any predictions you make.</p>
+<p>The problem is, the intersection of the two is often small:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="project-venn.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<p></p><figcaption class="figure-caption">Aim for the intersection of what’s important and what’s feasible.</figcaption><p></p>
+</figure>
+</div>
+<p>This often turns into a chicken and egg problem: you’ve identified <span class="math inline">\(X\)</span> as a really crucial issue in the field that needs solved urgently, but you only have the data/collaborators/skills to solve <span class="math inline">\(Y\)</span>. Consequently, iteration is needed to refine the project until you’ve identified a related problem that is still worthwhile to solve but actually feasible. This may take the form of limiting project scope (“let’s do a pan-cancer analysis” becomes “let’s do the analysis in the cancer type we have data for”) or settling on predicting a surrogate of what you actually want (e.g.&nbsp;predicting treatment response becomes predicting known treatment response signatures). What’s important is to consider this up-front and not get stuck on the not feasible / not important trap<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>This is a simplified re-telling but true to a first approximation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This is an educated guess, but I suspect after we account for over-fitting this acts as an upper bound.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>To a first approximation<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://twitter.com/tangming2005/status/1634575862862340101">Though other parts remain not straightforward.</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>What’s important is also highly subjective and not always obvious until (many decades) after the fact.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
